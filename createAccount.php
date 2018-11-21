@@ -24,16 +24,27 @@ if (isset($_POST['submit'])){
     if (!preg_match('/[a-z]/', $password) ||
         !preg_match('/[A-Z]/', $password) || 
         !preg_match('/[0-9]/', $password)){
-        echo "Password must be a mixture of numbers, lowercase letters, and uppercase leters.<br>";
-        $posting = false;
+            echo "Password must be a mixture of numbers, lowercase letters, and uppercase leters.<br>";
+            $posting = false;
     }
 
     if (!preg_match('/\./', $email) ||
         !preg_match('/\@/', $email) ||
         strlen($email) < 10){
-            echo "Please enter a valid email address";
+            echo "Please enter a valid email address<br>";
             $posting = false;
         }
+
+    $allUsers = mysqli_query($connection, 'SELECT * FROM userInfo');
+    foreach($allUsers as $user){
+        if ($user['email'] === $email){
+            echo "an account with that email address is already registered<br>";
+            $posting = false;
+        } if ($user['username'] === $username){
+            echo "an account with that username is already registered<br>";
+            $posting = false;
+        }
+    }
 
     if ($connection){
         if ($posting){
@@ -45,11 +56,11 @@ if (isset($_POST['submit'])){
             if(!$result){
                 die('query failed' . mysqli_error());
             } else {
-                echo "success! <a href='login.php'>Click here to log in</a>";
+                echo "success! <a href='login.php'>Click here to log in</a><br>";
             }
         }
     } else {
-        echo 'connection failed';
+        echo 'connection failed<br>';
     }
 }
 
