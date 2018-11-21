@@ -8,7 +8,7 @@
 <div class="text-center">
 <div class='box'>
 <h1>Welcome!</h1>
-<button class='btn btn-primary btn-block' href=#>Login</button>
+<a href='./login.php'><button class='btn btn-primary btn-block' href=#>Login</button></a>
 <a href='./createAccount.php'><button class='btn btn-info btn-block' style="margin-top: 3%; margin-bottom: 3%;">Create an Account</button></a>
 
 </div>
