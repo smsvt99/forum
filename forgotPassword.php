@@ -13,8 +13,14 @@
         
         foreach($addresses as $user){
             if ($user['email'] === $email){
-                // sendEmail($email);
-                echo "email found!";
+                
+                $message = mail($user['email'], "Lost Password", "Hello, " . $user['username'] . "\n\n. Your password is " . $user['password'] . ". \n For security reasons, it is recommended that you reset it after logging in.", 'From: forumProject@example.com');
+
+                if ($message){
+                    echo "email successful";
+                } else {
+                    echo "email failed";
+                }
             }
         }
     }
