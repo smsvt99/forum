@@ -12,36 +12,36 @@ if (isset($_POST['submit'])){
     $posting = true;
 
     if (strlen($username) < 5 || strlen($username) > 16){
-        echo "User name must be 6-16 characters in length<br>";
+        echo "<li class='text-danger alerts'>User name must be 6-16 characters in length</li>";
         $posting = false;
     }
 
     if (strlen($password) < 5 || strlen($password) > 16){
-        echo "Password must be 6-16 characters in length<br>";
+        echo "<li class='text-danger alerts'>Password must be 6-16 characters in length</li>";
         $posting = false;
     }
     
     if (!preg_match('/[a-z]/', $password) ||
         !preg_match('/[A-Z]/', $password) || 
         !preg_match('/[0-9]/', $password)){
-            echo "Password must be a mixture of numbers, lowercase letters, and uppercase leters.<br>";
+            echo "<li class='text-danger alerts'>Password must be a mixture of numbers, lowercase letters, and uppercase leters.</li>";
             $posting = false;
     }
 
     if (!preg_match('/\./', $email) ||
         !preg_match('/\@/', $email) ||
         strlen($email) < 10){
-            echo "Please enter a valid email address<br>";
+            echo "<li class='text-danger alerts'>Please enter a valid email address</li>";
             $posting = false;
         }
 
     $allUsers = mysqli_query($connection, 'SELECT * FROM userInfo');
     foreach($allUsers as $user){
         if ($user['email'] === $email){
-            echo "an account with that email address is already registered<br>";
+            echo "<li class='text-danger alerts'>an account with that email address is already registered</li>";
             $posting = false;
         } if ($user['username'] === $username){
-            echo "an account with that username is already registered<br>";
+            echo "<li class='text-danger alerts'>an account with that username is already registered</li>";
             $posting = false;
         }
     }
@@ -56,11 +56,11 @@ if (isset($_POST['submit'])){
             if(!$result){
                 die('query failed' . mysqli_error());
             } else {
-                echo "success! <a href='login.php'>Click here to log in</a><br>";
+                echo "<li class='alerts'>success! <a href='login.php'>Click here to log in</a></li>";
             }
         }
     } else {
-        echo 'connection failed<br>';
+        echo "<li class='text-danger alerts'>connection failed</li>";
     }
 }
 
